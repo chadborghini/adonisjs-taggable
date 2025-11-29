@@ -57,16 +57,47 @@ export class TaggableModelActions<T extends TaggableModelInterface> {
   // Public API
   // ---------------------------------------------------------
 
-  async attach(names: string | string[]) {
+  async attach(input: string | string[] | number | number[] | Tag | Tag[]) {
     const TaggableModel = this.modelManager.getModel('taggable')
-    const arr = Array.isArray(names) ? names : [names]
+
+    // Always work with an array
+    const items = Array.isArray(input) ? input : [input]
 
     const modelId = this.getModelId()
     const modelType = this.getModelType()
 
-    for (const name of arr) {
-      const tag = await this.findOrCreateTag(name)
+    for (const item of items) {
+      let tag: Tag
 
+      // 1. Tag model instance
+      if (item instanceof Tag) {
+        tag = item
+      }
+
+      // 2. Array of Tag instances
+      else if (Array.isArray(item) && item.length > 0 && item[0] instanceof Tag) {
+        for (const t of item) {
+          await this.attach(t) // recursive call
+        }
+        continue
+      }
+
+      // 3. number → tag ID
+      else if (typeof item === 'number') {
+        tag = await Tag.findOrFail(item)
+      }
+
+      // 4. string → find or create a tag from text
+      else if (typeof item === 'string') {
+        tag = await this.findOrCreateTag(item)
+      }
+
+      // 5. Should never happen with this type signature
+      else {
+        throw new Error(`Invalid value passed to attach(): ${item}`)
+      }
+
+      // Check if pivot already exists
       const exists = await TaggableModel.query()
         .where('tag_id', tag.id)
         .where('taggable_type', modelType)
