@@ -3,7 +3,7 @@
 import type { ApplicationService } from '@adonisjs/core/types'
 import { morphMap, MorphMapManager } from '@holoyan/morph-map-js'
 
-import { TclManager } from '../src/tcl.js'
+import { Tcl, TclManager } from '../src/tcl.js'
 import ModelManager from '../src/model_manager.js'
 
 import Tag from '../src/models/tag.js'
@@ -46,9 +46,7 @@ export default class TaggableProvider {
     /**
      * Register the singleton TclManager instance
      */
-    this.app.container.singleton('tcl', () => {
-      return new TclManager()
-    })
+    this.app.container.singleton('tcl', () => Tcl)
   }
 
   /**
