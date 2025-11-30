@@ -35,7 +35,7 @@ export async function configure(_command: ConfigureCommand) {
    * ----------------------------------------------
    */
   await codemods.updateRcFile((rcFile) => {
-    rcFile.addProvider('@chadborghini/taggable/taggable_provider')
+    rcFile.addProvider('@chadborghini/adonisjs-taggable/taggable_provider')
   })
 
   _command.logger.success('Registered TaggableProvider')

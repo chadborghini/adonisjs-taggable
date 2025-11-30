@@ -1,8 +1,12 @@
-{{{
-  exports({
-    to: app.makePath('database', 'migrations', prefix + '_create_tags_tables.ts')
-  })
-}}}
+{
+  {
+    {
+      exports({
+        to: app.makePath('database', 'migrations', prefix + '_create_tags_tables.ts'),
+      })
+    }
+  }
+}
 
 import { BaseSchema } from '@adonisjs/lucid/schema'
 
@@ -12,9 +16,9 @@ export default class extends BaseSchema {
      * TAGS TABLE
      */
     this.schema.createTable('tags', (table) => {
-      table.bigIncrements('id')                  // primary key
-      table.string('slug').notNullable().index() // normalized slug
-      table.string('name').nullable()           // human-readable label
+      table.bigIncrements('id')
+      table.string('slug').notNullable().index()
+      table.string('name').nullable()
 
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
