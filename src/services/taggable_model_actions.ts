@@ -165,7 +165,7 @@ export class TaggableModelActions<T extends TaggableModelInterface> {
     await this.attach(names)
   }
 
-  async getTags(): Promise<Tag[]> {
+  async loadTags(): Promise<Tag[]> {
     const TagModel = this.modelManager.getModel('tag')
     const TaggableModel = this.modelManager.getModel('taggable')
 
