@@ -1,12 +1,12 @@
-{
-  {
-    {
-      exports({
-        to: app.makePath('database', 'migrations', prefix + '_create_tags_tables.ts'),
-      })
-    }
-  }
-}
+{{{
+  exports({
+    to: app.makePath(
+      'database',
+      'migrations',
+      `${prefix}_create_tags_tables.ts`
+    ),
+  })
+}}}
 
 import { BaseSchema } from '@adonisjs/lucid/schema'
 
