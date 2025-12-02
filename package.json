@@ -1,7 +1,7 @@
 {
   "name": "@chadborghini/adonisjs-taggable",
   "description": "",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "engines": {
     "node": ">=20.6.0"
   },
